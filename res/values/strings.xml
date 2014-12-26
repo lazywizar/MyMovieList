@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">My Movie List</string>
+    <string name="hello_world">My Movie List</string>
+    <string name="enter_movie_name">Enter Movie Name</string>
+
+    <string-array name="movies_array">
+        <item>Archivo Criminal (1999)</item>
+        <item>ARD Wunschkonzert (1984)</item>
+        <item>Ardath Hit Parade (1958)</item>
+        <item>Ardhangini - Ek Khoobsurat Jeevansathi (2008)</item>
+        <item>Are-Oh-Vee (1988)</item>
+    </string-array>
+
+</resources>
