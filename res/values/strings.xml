@@ -4,6 +4,8 @@
     <string name="app_name">My Movie List</string>
     <string name="hello_world">My Movie List</string>
     <string name="enter_movie_name">Enter Movie Name</string>
+    <string name="footer">Copyright &#169; 2014 ThinkLazy Inc.</string>
+    
 
     <string-array name="movies_array">
         <item>Archivo Criminal (1999)</item>

@@ -10,23 +10,11 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp" >
-        <!-- android:background="@drawable/header" >  -->
+        android:layout_height="100dp"
+        android:paddingTop="15dp"
+        android:layout_weight="0.86" >
 
-        <TextView
-            android:id="@+id/txtheader"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal"
-            android:text="@string/hello_world"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/Black"
-            android:textSize="60px"
-            android:textStyle="bold"
-            android:typeface="normal" />
-
-        <!--
+        <!-- 
         <Button
             android:id="@+id/btnsetting"
             android:layout_width="wrap_content"
@@ -37,21 +25,34 @@
             android:background="@drawable/settingicon" />
         -->
 
+        <TextView
+            android:id="@+id/txtheader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/banner"
+            android:gravity="center"
+            android:paddingTop="55dp"
+            android:textColor="@android:color/white"
+            android:typeface="sans" />
+    
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="360dp"
+        android:layout_weight="0.11"
         android:background="@android:color/transparent"
         android:gravity="center"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/enterMoviewBtn"
-            android:layout_width="233dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
-            android:background="@drawable/play_btn"
+            android:background="@drawable/mybutton1"
             android:gravity="center"
             android:textColor="@android:color/white"
             android:textSize="35sp"
@@ -60,71 +61,55 @@
         <TextView
             android:id="@+id/mymoviesBtn"
             android:layout_width="wrap_content"
-            android:layout_height="59dp"
+            android:layout_height="wrap_content"
             android:layout_margin="2dp"
-            android:background="@drawable/feedback_btn"
+            android:background="@drawable/mymovies"
             android:gravity="center"
             android:textColor="@android:color/white"
             android:textSize="35sp"
             android:typeface="sans" />
 
         <TextView
-            android:id="@+id/txthighscore"
+            android:id="@+id/addtowish"
             android:layout_width="wrap_content"
-            android:layout_height="59dp"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/txtfeedback1"
+            android:layout_height="wrap_content"
             android:layout_margin="2dp"
-            android:background="@drawable/highscore_btn"
+            android:background="@drawable/addtowish"
             android:gravity="center"
-            android:padding="10dp"
             android:textColor="@android:color/white"
             android:typeface="sans" />
 
         <TextView
-            android:id="@+id/btnshopping"
-            android:layout_width="196dp"
-            android:layout_height="64dp"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/txtfeedback1"
-            android:layout_margin="0dp"
-            android:background="@drawable/shopping"
+            android:id="@+id/mywish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:background="@drawable/mywishlist"
             android:gravity="center"
             android:padding="10dp"
-            android:textColor="@android:color/white"
-            android:typeface="sans" />
-
-        <TextView
-            android:id="@+id/txtplay2"
-            android:layout_width="wrap_content"
-            android:layout_height="53dp"
-            android:layout_margin="2dp"
-            android:background="@drawable/play_btn"
-            android:gravity="center"
             android:textColor="@android:color/white"
             android:textSize="35sp"
             android:typeface="sans" />
+    </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/sign_in_buttons"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:gravity="bottom"
+        android:layout_height="70dp" >
+
+        <!-- android:background="@drawable/header" > -->
+
+        <TextView
+            android:id="@+id/txtfooter"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:gravity="center"
-            android:orientation="horizontal" >
-
-            <!-- sign-in button -->
-
-
-            <!-- sign-out button -->
-
-            <Button
-                android:id="@+id/sign_out_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sign Out"
-                android:visibility="gone" />
-        </LinearLayout>
-    </LinearLayout>
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:text="@string/footer"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/White"
+            android:textSize="15dp"
+            android:typeface="normal" />
+    </RelativeLayout>
 
 </LinearLayout>

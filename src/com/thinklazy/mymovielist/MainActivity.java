@@ -13,33 +13,81 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
     TextView mEnterMovie;
     TextView mMyMovie;
+    TextView mAddToWish;
+    TextView mMyWish;
 
     public static final String MyPREFERENCES = "MyPrefs";
     public static final String DB_CREATED = "db_created";
     public static final String DB_LOAD_PERCENT = "db_load_percent";
 
     private DatabaseHandler dbHandler;
+    private SharedPreferences sharedpreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.activity_main);
+	sharedpreferences = getSharedPreferences(MyPREFERENCES,
+		this.MODE_PRIVATE);
+	mAddToWish = (TextView) findViewById(R.id.addtowish);
+	mAddToWish.setOnClickListener(new OnClickListener() {
 
+	    @Override
+	    public void onClick(View v) {
+		if (!InitializeDbHelper.isCompleteLoading()
+			&& !sharedpreferences.contains(DB_CREATED)) {
+		    // myAutoComplete.setVisibility(0);
+		    Toast toast = Toast
+			    .makeText(
+				    getApplicationContext(),
+				    "Loading awesome movies.. "
+					    + InitializeDbHelper
+						    .getLoadPercent()
+					    + "% \nPlease hold on \n(Don't worry, this happens only on first start!)",
+				    Toast.LENGTH_LONG);
+		    toast.setGravity(Gravity.CENTER, 0, 0);
+		    toast.show();
+		} else {
+		    Intent intent = new Intent(MainActivity.this,
+			    EnterMovieActivity.class);
+		    intent.putExtra("method", "wishlist");
+		    startActivity(intent);
+		}
+	    }
+	});
+
+	mMyWish = (TextView) findViewById(R.id.mywish);
+	mMyWish.setOnClickListener(new OnClickListener() {
+	    @Override
+	    public void onClick(View v) {
+		Intent i = new Intent(MainActivity.this, MyMoviesActivity.class);
+		i.putExtra("method", "wishlist");
+		startActivity(i);
+	    }
+	});
+	
 	mEnterMovie = (TextView) findViewById(R.id.enterMoviewBtn);
 	mEnterMovie.setOnClickListener(new OnClickListener() {
 
 	    @Override
 	    public void onClick(View v) {
-		if (!InitializeDbHelper.isCompleteLoading()) {
+		if (!InitializeDbHelper.isCompleteLoading()
+			&& !sharedpreferences.contains(DB_CREATED)) {
 		    // myAutoComplete.setVisibility(0);
-		    Toast toast = Toast.makeText(getApplicationContext(), 
-			    "Loading awesome movies.. " + InitializeDbHelper.getLoadPercent() + "% \nPlease hold on \n(Don't worry, this happens only on first start!)", 
-			    Toast.LENGTH_LONG);
+		    Toast toast = Toast
+			    .makeText(
+				    getApplicationContext(),
+				    "Loading awesome movies.. "
+					    + InitializeDbHelper
+						    .getLoadPercent()
+					    + "% \nPlease hold on \n(Don't worry, this happens only on first start!)",
+				    Toast.LENGTH_LONG);
 		    toast.setGravity(Gravity.CENTER, 0, 0);
 		    toast.show();
 		} else {
 		    Intent i = new Intent(MainActivity.this,
 			    EnterMovieActivity.class);
+		    i.putExtra("method", "add");
 		    startActivity(i);
 		}
 	    }
@@ -49,24 +97,14 @@ public class MainActivity extends Activity {
 	mMyMovie.setOnClickListener(new OnClickListener() {
 	    @Override
 	    public void onClick(View v) {
-		Intent i = new Intent(MainActivity.this,
-			MyMoviesActivity.class);
-		    startActivity(i);
+		Intent i = new Intent(MainActivity.this, MyMoviesActivity.class);
+		i.putExtra("method", "mymovies");
+		startActivity(i);
 	    }
 	});
-	
-	SharedPreferences sharedpreferences = getSharedPreferences(
-		MyPREFERENCES, this.MODE_PRIVATE);
+
 	if (!sharedpreferences.contains(DB_CREATED)) {
 	    // instantiate database handler
-
-	    /*
-	     * PrelodedDbHelper myDbHelper = new PrelodedDbHelper(this); try {
-	     * myDbHelper.createDataBase(); } catch (IOException ioe) { throw
-	     * new Error("Unable to create database"); } try {
-	     * myDbHelper.openDataBase(); } catch (SQLException sqle) { throw
-	     * sqle; }
-	     */
 	    dbHandler = new DatabaseHandler(MainActivity.this);
 	    dbHandler.getWritableDatabase();
 

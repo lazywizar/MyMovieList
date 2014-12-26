@@ -177,6 +177,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	db.execSQL(sql);
     }
     
+    public void addToWish(String movieName) {
+	// select query
+	String sql = "";
+	sql += "update "+ tableName ;
+	sql += " set " + wishlist + "='Y' where name = '" ;
+	sql += movieName + "'";
+
+	SQLiteDatabase db = this.getWritableDatabase();
+
+	// execute the query
+	db.execSQL(sql);
+    }
+    
     public List<Movie> getMyMovies() {
 	List<Movie> recordsList = new ArrayList<Movie>();
 
@@ -184,6 +197,42 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	String sql = "";
 	sql += "SELECT * FROM " + tableName;
 	sql += " WHERE " + seen + " LIKE '%" + "Y" + "%'";
+
+	SQLiteDatabase db = this.getWritableDatabase();
+
+	// execute the query
+	Cursor cursor = db.rawQuery(sql, null);
+
+	// looping through all rows and adding to list
+	if (cursor.moveToFirst()) {
+	    do {
+		String movieName = cursor.getString(cursor
+			.getColumnIndex(name));
+		String genreName = cursor.getString(cursor
+			.getColumnIndex(genre));
+		String ratingName = cursor.getString(cursor
+			.getColumnIndex(rating));
+		Movie movie = new Movie(movieName, null, ratingName, genreName, null);
+		// add to list
+		recordsList.add(movie);
+
+	    } while (cursor.moveToNext());
+	}
+
+	cursor.close();
+	db.close();
+
+	// return the list of records
+	return recordsList;
+    }
+    
+    public List<Movie> getWishList() {
+	List<Movie> recordsList = new ArrayList<Movie>();
+
+	// select query
+	String sql = "";
+	sql += "SELECT * FROM " + tableName;
+	sql += " WHERE " + wishlist + " LIKE '%" + "Y" + "%'";
 
 	SQLiteDatabase db = this.getWritableDatabase();
 

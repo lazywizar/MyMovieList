@@ -33,8 +33,7 @@ public class CustomAutoCompleteTextChangedListener implements TextWatcher{
  
         // if you want to see in the logcat what the user types
         //Log.e(TAG, "User input: " + userInput);
- 
-        EnterMovieActivity enterMovieActivity = ((EnterMovieActivity) context);
+	EnterMovieActivity enterMovieActivity = ((EnterMovieActivity) context);
          
         // query the database based on the user input
         enterMovieActivity.item = enterMovieActivity.getItemsFromDb(userInput.toString());

@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -13,18 +14,26 @@ import android.widget.ListView;
 public class MyMoviesActivity extends Activity {
     // for database operations
     DatabaseHandler databaseH;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.listviewmymovies);
 
+	Intent intent =  getIntent();
+	String method = intent.getStringExtra("method");
+	
 	final ListView listview = (ListView) findViewById(R.id.listview);
 
 	databaseH = new DatabaseHandler(MyMoviesActivity.this);
 	databaseH.getWritableDatabase();
 
-	List<Movie> movies = databaseH.getMyMovies();
+	List<Movie> movies ;
+	if(method.equalsIgnoreCase("wishlist")) {
+	    movies = databaseH.getWishList();
+	} else {
+	    movies = databaseH.getMyMovies();
+	}
 	final ArrayList<String> list = new ArrayList<String>();
 	
 	for(Movie movie : movies) {
@@ -34,22 +43,6 @@ public class MyMoviesActivity extends Activity {
 	final StableArrayAdapter adapter = new StableArrayAdapter(this,
 		android.R.layout.simple_list_item_1, list);
 	listview.setAdapter(adapter);
-
-	/*
-	 * listview.setOnItemClickListener(new AdapterView.OnItemClickListener()
-	 * {
-	 * 
-	 * @Override public void onItemClick(AdapterView<?> parent, final View
-	 * view, int position, long id) { final String item = (String)
-	 * parent.getItemAtPosition(position);
-	 * view.animate().setDuration(2000).alpha(0) .withEndAction(new
-	 * Runnable() {
-	 * 
-	 * @Override public void run() { list.remove(item);
-	 * adapter.notifyDataSetChanged(); view.setAlpha(1); } }); }
-	 * 
-	 * });
-	 */
     }
 
     private class StableArrayAdapter extends ArrayAdapter<String> {

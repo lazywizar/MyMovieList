@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -33,7 +34,9 @@ public class EnterMovieActivity extends Activity {
     TextView rating;
     TextView title;
     Button add;
-
+    String wishToastText;
+    Boolean isWish;
+    
     // adapter for auto-complete
     ArrayAdapter<String> myAdapter;
 
@@ -48,7 +51,9 @@ public class EnterMovieActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.enter_movie);
-
+	Intent intent = getIntent();
+	String method = intent.getStringExtra("method");
+	
 	// autocompletetextview is in activity_main.xml
 	myAutoComplete = (CustomAutoCompleteView) findViewById(R.id.autocompleteMovies);
 	cancel = (Button) findViewById(R.id.btncancel);
@@ -57,8 +62,17 @@ public class EnterMovieActivity extends Activity {
 	movieName = (TextView) findViewById(R.id.movie_name);
 	genre = (TextView) findViewById(R.id.movie_genre);
 	rating = (TextView) findViewById(R.id.movie_rating);
+	
 	add = (Button) findViewById(R.id.btnadd);
-
+	if(method.equalsIgnoreCase("wishlist")) {
+	    wishToastText = "Added to your Wishlist!!";
+	    isWish = true;
+	    add.setText("Add to Wishlist");
+	} else {
+	    wishToastText = "Added to your list!!";
+	    isWish = false;
+	    add.setText("Add");
+	}
 	add.setVisibility(0);
 	title = (TextView) findViewById(R.id.txtname);
 	context = this;
@@ -112,9 +126,13 @@ public class EnterMovieActivity extends Activity {
 	    add.setOnClickListener(new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-		    databaseH.markRead(movieName.getText().toString());
+		    if(isWish) {
+			databaseH.addToWish(movieName.getText().toString());
+		    } else {
+			databaseH.markRead(movieName.getText().toString());
+		    }
 		    Toast toast = Toast.makeText(getApplicationContext(), 
-			    "Added to your database!!", 
+			    wishToastText, 
 			    Toast.LENGTH_LONG);
 		    toast.setGravity(Gravity.CENTER, 0, 0);
 		    toast.show();

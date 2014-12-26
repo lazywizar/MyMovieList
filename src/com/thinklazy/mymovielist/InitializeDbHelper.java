@@ -19,7 +19,7 @@ import android.util.Log;
 class InitializeDbHelper extends AsyncTask<Object, Void, String> {
     private SQLiteDatabase db;
     private String TAG = InitializeDbHelper.class.getSimpleName();
-    private static Boolean complete = false;
+    private static Boolean complete = true;
     private static long completedPercent = 0;
 
     public static boolean isCompleteLoading() {
@@ -71,8 +71,8 @@ class InitializeDbHelper extends AsyncTask<Object, Void, String> {
 	    int count = 0;
 	    db = dbHelper.getWritableDatabase();
 	    int masterCount = 1;
-	    while ((line = bufferedReader.readLine()) != null
-		    && completedPercent < 3) {
+	    complete = false;
+	    while ((line = bufferedReader.readLine()) != null) {
 		/*
 		 * String insert = "INSERT or replace INTO " +
 		 * DatabaseHandler.tableName + " (name) VALUES('" + line.trim()
