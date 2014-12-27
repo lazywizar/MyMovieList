@@ -70,19 +70,33 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="16dp"
-        android:paddingBottom="12dp"
         android:gravity="bottom"
+        android:paddingBottom="12dp"
+        android:paddingLeft="16dp"
         android:paddingRight="16dp" >
 
-        <TextView
+        <ImageView
+            android:id="@+id/spinner"
             android:gravity="top"
-            android:id="@+id/movie_name"
-            android:textColor="@color/SkyBlue"
-            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/haveseen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-        />
+            android:layout_below="@id/spinner"
+            android:textColor="@color/DarkGray"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/movie_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/haveseen"
+            android:textColor="@color/SkyBlue"
+            android:textSize="25dp" />
 
         <TextView
             android:id="@+id/movie_rating"
@@ -90,26 +104,36 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@id/movie_name"
+            android:layout_toLeftOf="@+id/movie_genre"
             android:textColor="@color/Red"
-            android:textSize="17dp"
-            android:layout_toLeftOf="@+id/movie_genre" />
+            android:textSize="17dp" />
 
         <TextView
             android:id="@+id/movie_genre"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_below="@id/movie_name"
             android:textColor="@color/DarkGreen"
-            android:textSize="17dp"
-            android:layout_below="@id/movie_name" />
+            android:textSize="17dp" />
+
+        <Button
+            android:id="@+id/btnaddtowish"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="false"
+            android:layout_below="@id/movie_genre"
+            android:layout_toLeftOf="@+id/btnaddtowish"
+            android:gravity="center_horizontal"
+            android:text="Add to Wishlist" />
 
         <Button
             android:id="@+id/btnadd"
-            android:layout_width="96dp"
-            android:gravity="center_horizontal"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@id/movie_genre"
+            android:gravity="center_horizontal"
             android:text="Add" />
     </RelativeLayout>
 

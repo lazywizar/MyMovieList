@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,7 +11,6 @@ import android.content.SharedPreferences.Editor;
 import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -43,11 +41,11 @@ class InitializeDbHelper extends AsyncTask<Object, Void, String> {
 	// String sql = "DROP TABLE IF EXISTS " + DatabaseHandler.tableName;
 	// db.execSQL(sql);
 
-	if (isTableExists(db, DatabaseHandler.tableName)) {
+	if (isTableExists(db, DatabaseHandler.TABLE_NAME)) {
 	    Log.d(TAG, "table already exists");
 
 	    Cursor mCount = db.rawQuery("select count(*) from "
-		    + DatabaseHandler.tableName, null);
+		    + DatabaseHandler.TABLE_NAME, null);
 	    mCount.moveToFirst();
 	    int rowCount = mCount.getInt(0);
 	    mCount.close();
@@ -64,7 +62,7 @@ class InitializeDbHelper extends AsyncTask<Object, Void, String> {
 	AssetManager assetManager = context.getAssets();
 	try {
 	    InputStream inputStream = assetManager
-		    .open("movies_top_unique.sql");
+		    .open("movies_cleaned_unique.sql");
 	    InputStreamReader streamReader = new InputStreamReader(inputStream);
 	    BufferedReader bufferedReader = new BufferedReader(streamReader);
 	    String line;

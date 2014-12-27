@@ -1783,9 +1783,9 @@ containing a value of this type.
         public static final int background=0x7f020035;
         public static final int background_bk=0x7f020036;
         public static final int banner=0x7f020037;
-        public static final int banner2=0x7f020038;
-        public static final int cancel_btn=0x7f020039;
-        public static final int feedback_btn=0x7f02003a;
+        public static final int cancel_btn=0x7f020038;
+        public static final int feedback_btn=0x7f020039;
+        public static final int haveiseen=0x7f02003a;
         public static final int header=0x7f02003b;
         public static final int highscore_btn=0x7f02003c;
         public static final int ic_launcher=0x7f02003d;
@@ -1797,6 +1797,7 @@ containing a value of this type.
         public static final int seperator=0x7f020043;
         public static final int settingicon=0x7f020044;
         public static final int shopping=0x7f020045;
+        public static final int spinner=0x7f020046;
     }
     public static final class id {
         public static final int RelativeLayout1=0x7f050041;
@@ -1821,6 +1822,7 @@ containing a value of this type.
         public static final int bottom=0x7f050016;
         public static final int btnOk=0x7f05004b;
         public static final int btnadd=0x7f05004f;
+        public static final int btnaddtowish=0x7f050052;
         public static final int btncancel=0x7f05004a;
         public static final int checkbox=0x7f05002b;
         public static final int collapseActionView=0x7f05000f;
@@ -1834,6 +1836,7 @@ containing a value of this type.
         public static final int enterMoviewBtn=0x7f050043;
         public static final int expand_activities_button=0x7f050024;
         public static final int expanded_menu=0x7f05002a;
+        public static final int haveseen=0x7f050051;
         public static final int home=0x7f050017;
         public static final int homeAsUp=0x7f050007;
         public static final int icon=0x7f050028;
@@ -1841,7 +1844,7 @@ containing a value of this type.
         public static final int image=0x7f050025;
         public static final int listMode=0x7f050002;
         public static final int list_item=0x7f050027;
-        public static final int listview=0x7f050050;
+        public static final int listview=0x7f050053;
         public static final int middle=0x7f050013;
         public static final int movie_genre=0x7f05004e;
         public static final int movie_name=0x7f05004c;
@@ -1868,6 +1871,7 @@ containing a value of this type.
         public static final int showCustom=0x7f050009;
         public static final int showHome=0x7f050006;
         public static final int showTitle=0x7f050008;
+        public static final int spinner=0x7f050050;
         public static final int split_action_bar=0x7f05001b;
         public static final int submit_area=0x7f05003e;
         public static final int tabMode=0x7f050003;

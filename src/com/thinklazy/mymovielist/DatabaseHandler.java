@@ -1,8 +1,12 @@
 package com.thinklazy.mymovielist;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,27 +23,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     protected static final String DATABASE_NAME = "movies";
 
     // table details
-    public final static String tableName = "movies_top_unique";
-    public final static String fieldObjectId = "id";
-    public final static String name = "name";
-    public final static String status = "status";
-    public final static String rating = "rating";
-    public final static String year = "year";
-    public final static String genre = "genre";
-    public final static String seen = "seen";
-    public final static String wishlist = "wishlist";
+    public final static String TABLE_NAME = "movies_top_unique";
+    public final static String FIELD_OBJECT_ID = "id";
+    public final static String NAME = "name";
+    public final static String STATUS = "status";
+    public final static String RATING = "rating";
+    public final static String YEAR = "year";
+    public final static String GENRE = "genre";
+    public final static String SEEN = "seen";
+    public final static String WISHLIST = "wishlist";
+    
     public final static String id = "id";
 
     public static final String CREATE_TABLE_MOVIES = "CREATE TABLE if not exists "
-	    + tableName
+	    + TABLE_NAME
 	    + "("
 	    + id + " TEXT PRIMARY KEY,"
-	    + name + " TEXT,"
-	    + status + " TEXT,"
-	    + rating + " TEXT,"
-	    + seen + " TEXT,"
-	    + wishlist + " TEXT," 
-	    + genre + " TEXT" + ")";
+	    + NAME + " TEXT,"
+	    + STATUS + " TEXT,"
+	    + RATING + " TEXT,"
+	    + SEEN + " TEXT,"
+	    + WISHLIST + " TEXT," 
+	    + GENRE + " TEXT" + ")";
 
     // constructor
     public DatabaseHandler(Context context) {
@@ -56,7 +61,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-	String sql = "DROP TABLE IF EXISTS " + tableName;
+	String sql = "DROP TABLE IF EXISTS " + TABLE_NAME;
 	db.execSQL(sql);
 
 	onCreate(db);
@@ -85,8 +90,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	boolean recordExists = false;
 
 	SQLiteDatabase db = this.getWritableDatabase();
-	Cursor cursor = db.rawQuery("SELECT " + fieldObjectId + " FROM "
-		+ tableName + " WHERE name= '" + movieName + "'", null);
+	Cursor cursor = db.rawQuery("SELECT " + FIELD_OBJECT_ID + " FROM "
+		+ TABLE_NAME + " WHERE name= '" + movieName + "'", null);
 
 	if (cursor != null) {
 
@@ -108,10 +113,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	// select query
 	String sql = "";
-	sql += "SELECT * FROM " + tableName;
-	sql += " WHERE " + this.name + " LIKE '%" + searchTerm + "%'";
-	sql += " ORDER BY " + fieldObjectId + " DESC";
-	sql += " LIMIT 0,5";
+	sql += "SELECT * FROM " + TABLE_NAME;
+	sql += " WHERE " + this.NAME + " LIKE '%" + searchTerm + "%'";
+	sql += " ORDER BY " + FIELD_OBJECT_ID + " DESC";
+	sql += " LIMIT 0,3";
 
 	SQLiteDatabase db = this.getWritableDatabase();
 
@@ -122,7 +127,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	if (cursor.moveToFirst()) {
 	    do {
 		String objectName = cursor.getString(cursor
-			.getColumnIndex(this.name));
+			.getColumnIndex(this.NAME));
 		Movie movie = new Movie(objectName);
 
 		// add to list
@@ -142,8 +147,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public Movie get(String movieName) {
 	// select query
 	String sql = "";
-	sql += "SELECT * FROM " + tableName;
-	sql += " WHERE " + this.name + " = '" + movieName + "'";
+	sql += "SELECT * FROM " + TABLE_NAME;
+	sql += " WHERE " + NAME + " = '" + movieName + "'";
 
 	SQLiteDatabase db = this.getWritableDatabase();
 
@@ -152,23 +157,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	// looping through all rows and adding to list
 	if (cursor.moveToFirst()) {
-	    String moviewName = cursor.getString(cursor
-		    .getColumnIndex(this.name));
-	    String genre = cursor.getString(cursor.getColumnIndex(this.genre));
-	    String rating = cursor
-		    .getString(cursor.getColumnIndex(this.rating));
-	    Movie movie = new Movie(moviewName, null, rating, genre, null);
+	    String genreName = cursor.getString(cursor.getColumnIndex(GENRE));
+	    String ratingName = cursor
+		    .getString(cursor.getColumnIndex(RATING));
+	    String seendate = cursor
+		    .getString(cursor.getColumnIndex(SEEN));
+	    String isWishlist = cursor
+		    .getString(cursor.getColumnIndex(WISHLIST));
+	    
+	    Movie movie = new Movie(movieName, null, ratingName, genreName, seendate, isWishlist, null);
 	    return movie;
 	}
 
 	return null;
     }
 
-    public void markRead(String movieName) {
+    public void markSeen(String movieName) {
 	// select query
 	String sql = "";
-	sql += "update "+ tableName ;
-	sql += " set " + seen + "='Y' where name = '" ;
+	sql += "update "+ TABLE_NAME ;
+	sql += " set " + SEEN + "='" +  getDateTime()  + "' where name = '" ;
 	sql += movieName + "'";
 
 	SQLiteDatabase db = this.getWritableDatabase();
@@ -180,8 +188,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void addToWish(String movieName) {
 	// select query
 	String sql = "";
-	sql += "update "+ tableName ;
-	sql += " set " + wishlist + "='Y' where name = '" ;
+	sql += "update "+ TABLE_NAME ;
+	sql += " set " + WISHLIST + "='Y' where name = '" ;
 	sql += movieName + "'";
 
 	SQLiteDatabase db = this.getWritableDatabase();
@@ -195,8 +203,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	// select query
 	String sql = "";
-	sql += "SELECT * FROM " + tableName;
-	sql += " WHERE " + seen + " LIKE '%" + "Y" + "%'";
+	sql += "SELECT * FROM " + TABLE_NAME;
+	sql += " WHERE " + SEEN + " LIKE '%" + "-" + "%'";
 
 	SQLiteDatabase db = this.getWritableDatabase();
 
@@ -207,11 +215,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	if (cursor.moveToFirst()) {
 	    do {
 		String movieName = cursor.getString(cursor
-			.getColumnIndex(name));
+			.getColumnIndex(NAME));
 		String genreName = cursor.getString(cursor
-			.getColumnIndex(genre));
+			.getColumnIndex(GENRE));
 		String ratingName = cursor.getString(cursor
-			.getColumnIndex(rating));
+			.getColumnIndex(RATING));
 		Movie movie = new Movie(movieName, null, ratingName, genreName, null);
 		// add to list
 		recordsList.add(movie);
@@ -226,13 +234,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	return recordsList;
     }
     
+    public void addMovie(Movie movie) {
+	SQLiteDatabase db = this.getWritableDatabase();
+
+	ContentValues values = new ContentValues();
+	// values.put(KEY_ID, contact.get_id());
+	values.put(NAME, movie.name);
+	values.put(STATUS, movie.status);
+	values.put(RATING, movie.rating);
+	values.put(WISHLIST, movie.wishlist);
+	values.put(SEEN, movie.seen);
+	values.put(GENRE, movie.genre);
+	values.put(id, movie.id);
+
+	// Inserting Row
+	db.insert(TABLE_NAME, null, values);
+	db.close(); // Closing database connection
+}
+    
     public List<Movie> getWishList() {
 	List<Movie> recordsList = new ArrayList<Movie>();
 
 	// select query
 	String sql = "";
-	sql += "SELECT * FROM " + tableName;
-	sql += " WHERE " + wishlist + " LIKE '%" + "Y" + "%'";
+	sql += "SELECT * FROM " + TABLE_NAME;
+	sql += " WHERE " + WISHLIST + " LIKE '%" + "Y" + "%'";
 
 	SQLiteDatabase db = this.getWritableDatabase();
 
@@ -243,11 +269,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	if (cursor.moveToFirst()) {
 	    do {
 		String movieName = cursor.getString(cursor
-			.getColumnIndex(name));
+			.getColumnIndex(NAME));
 		String genreName = cursor.getString(cursor
-			.getColumnIndex(genre));
+			.getColumnIndex(GENRE));
 		String ratingName = cursor.getString(cursor
-			.getColumnIndex(rating));
+			.getColumnIndex(RATING));
 		Movie movie = new Movie(movieName, null, ratingName, genreName, null);
 		// add to list
 		recordsList.add(movie);
@@ -261,4 +287,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// return the list of records
 	return recordsList;
     }
+    
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
+}
+    
 }
