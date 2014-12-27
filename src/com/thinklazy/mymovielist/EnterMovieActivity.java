@@ -16,7 +16,6 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -144,11 +143,16 @@ public class EnterMovieActivity extends Activity {
 			    seen.setText("You have seen this movie on "
 				    + movie.seen + "\n");
 			    add.setEnabled(false);
+			    add.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_pressedjustwatched));
+			    
 			} else {
 			    add.setEnabled(true);
-			}
+			    add.setBackgroundDrawable(getResources().getDrawable(R.drawable.btnjustwatched));
+			    
+			}	
 			addToWish.setEnabled(true);
-
+			addToWish.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_addtowishlist));
+			    
 			movieName.setText(movie.name + "\n");
 			if(movie.genre != null) {
 			    genre.setText(movie.genre + "\n");
@@ -201,11 +205,16 @@ public class EnterMovieActivity extends Activity {
 					    seen.setText("You have seen this movie on "
 						    + movie.seen + "\n");
 					    add.setEnabled(false);
+					    add.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_pressedjustwatched));
+					    
 					} else {
 					    add.setEnabled(true);
+					    add.setBackgroundDrawable(getResources().getDrawable(R.drawable.btnjustwatched));
+					    
 					}
 					addToWish.setEnabled(true);
-
+					addToWish.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_addtowishlist));
+					    
 					movieName.setText(movie.name + "\n");
 					genre.setText(movie.genre + "\n");
 					rating.setText("Rating : " + movie.rating);
@@ -248,6 +257,8 @@ public class EnterMovieActivity extends Activity {
 		    toast.setGravity(Gravity.CENTER, 0, 0);
 		    toast.show();
 		    add.setEnabled(false);
+		    add.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_pressedjustwatched));
+		    
 		}
 	    });
 
@@ -267,6 +278,8 @@ public class EnterMovieActivity extends Activity {
 		    toast.setGravity(Gravity.CENTER, 0, 0);
 		    toast.show();
 		    addToWish.setEnabled(false);
+		    addToWish.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_pressedaddtowishlist));
+		    
 		}
 	    });
 

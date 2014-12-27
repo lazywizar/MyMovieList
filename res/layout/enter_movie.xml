@@ -15,7 +15,7 @@
         android:layout_marginTop="15dp"
         android:text="@string/enter_movie_name"
         android:textColor="@color/background_floating_material_dark"
-        android:textSize="17dp" />
+        android:textSize="20dp" />
 
     <com.thinklazy.mymovielist.CustomAutoCompleteView
         android:id="@+id/autocompleteMovies"
@@ -49,7 +49,8 @@
                 android:id="@+id/btncancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btncancel" />
+                android:layout_marginRight="1dp"
+                android:background="@drawable/btn_clear" />
         </LinearLayout>
 
         <LinearLayout
@@ -63,6 +64,7 @@
                 android:id="@+id/btnOk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
                 android:background="@drawable/btnok" />
         </LinearLayout>
     </LinearLayout>
@@ -117,8 +119,8 @@
             android:layout_alignParentRight="false"
             android:layout_below="@id/movie_genre"
             android:layout_toLeftOf="@+id/btnadd"
-            android:gravity="center_horizontal"
-            android:background="@drawable/btnaddtowatchlist" />
+            android:layout_margin="2dp"
+            android:background="@drawable/btn_addtowishlist" />
 
         <Button
             android:id="@+id/btnadd"
@@ -126,7 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@id/movie_genre"
-            android:gravity="center_horizontal"
+            android:layout_margin="2dp"
             android:background="@drawable/btnjustwatched" />
     </RelativeLayout>
 
