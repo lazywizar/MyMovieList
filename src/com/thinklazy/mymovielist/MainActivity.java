@@ -3,6 +3,7 @@ package com.thinklazy.mymovielist;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -23,6 +24,14 @@ public class MainActivity extends Activity {
     private DatabaseHandler dbHandler;
     private SharedPreferences sharedpreferences;
 
+    @Override
+    protected void onResume() {
+	super.onResume();
+	
+	Drawable listActivityBackground = findViewById(R.id.RelativeLayout1).getBackground();
+	listActivityBackground.setAlpha(1000);
+    }
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);

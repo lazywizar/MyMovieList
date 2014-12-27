@@ -1831,7 +1831,8 @@ containing a value of this type.
         public static final int bottom=0x7f050016;
         public static final int btnOk=0x7f05004b;
         public static final int btnadd=0x7f05004f;
-        public static final int btnaddtowish=0x7f050051;
+        public static final int btnaddtowish=0x7f050053;
+        public static final int btnback=0x7f050051;
         public static final int btncancel=0x7f05004a;
         public static final int checkbox=0x7f05002b;
         public static final int collapseActionView=0x7f05000f;
@@ -1843,9 +1844,10 @@ containing a value of this type.
         public static final int edit_query=0x7f050035;
         public static final int end=0x7f050014;
         public static final int enterMoviewBtn=0x7f050043;
+        public static final int enterlayout=0x7f050050;
         public static final int expand_activities_button=0x7f050024;
         public static final int expanded_menu=0x7f05002a;
-        public static final int haveseen=0x7f050050;
+        public static final int haveseen=0x7f050052;
         public static final int home=0x7f050017;
         public static final int homeAsUp=0x7f050007;
         public static final int icon=0x7f050028;
@@ -1853,7 +1855,9 @@ containing a value of this type.
         public static final int image=0x7f050025;
         public static final int listMode=0x7f050002;
         public static final int list_item=0x7f050027;
-        public static final int listview=0x7f050052;
+        public static final int list_layout=0x7f050054;
+        public static final int listtitle=0x7f050055;
+        public static final int listview=0x7f050057;
         public static final int middle=0x7f050013;
         public static final int movie_genre=0x7f05004e;
         public static final int movie_name=0x7f05004c;
@@ -1876,6 +1880,7 @@ containing a value of this type.
         public static final int search_plate=0x7f05003b;
         public static final int search_src_text=0x7f05003c;
         public static final int search_voice_btn=0x7f050040;
+        public static final int sep=0x7f050056;
         public static final int shortcut=0x7f05002c;
         public static final int showCustom=0x7f050009;
         public static final int showHome=0x7f050006;
@@ -2003,9 +2008,12 @@ containing a value of this type.
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0a000d;
         public static final int app_name=0x7f0a000f;
+        public static final int back=0x7f0a0013;
         public static final int enter_movie_name=0x7f0a0011;
         public static final int footer=0x7f0a0012;
         public static final int hello_world=0x7f0a0010;
+        public static final int mymovies=0x7f0a0015;
+        public static final int mywish=0x7f0a0014;
     }
     public static final class style {
         /** 

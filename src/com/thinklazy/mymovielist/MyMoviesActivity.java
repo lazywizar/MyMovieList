@@ -4,16 +4,30 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MyMoviesActivity extends Activity {
     // for database operations
     DatabaseHandler databaseH;
+    TextView listTitle;
+    
+    @Override
+    protected void onResume() {
+	super.onResume();
+	
+	Drawable listActivityBackground = findViewById(R.id.list_layout).getBackground();
+	listActivityBackground.setAlpha(35);
+    }
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,14 +39,18 @@ public class MyMoviesActivity extends Activity {
 	
 	final ListView listview = (ListView) findViewById(R.id.listview);
 
+	listTitle = (TextView) findViewById(R.id.listtitle);
+	
 	databaseH = new DatabaseHandler(MyMoviesActivity.this);
 	databaseH.getWritableDatabase();
 
 	List<Movie> movies ;
 	if(method.equalsIgnoreCase("wishlist")) {
 	    movies = databaseH.getWishList();
+	    listTitle.setText(R.string.mywish);
 	} else {
 	    movies = databaseH.getMyMovies();
+	    listTitle.setText(R.string.mymovies);	
 	}
 	final ArrayList<String> list = new ArrayList<String>();
 	
@@ -43,6 +61,26 @@ public class MyMoviesActivity extends Activity {
 	final StableArrayAdapter adapter = new StableArrayAdapter(this,
 		android.R.layout.simple_list_item_1, list);
 	listview.setAdapter(adapter);
+	
+	/*
+	listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+		@SuppressLint("NewApi") @Override
+		public void onItemClick(AdapterView<?> parent, final View view,
+				int position, long id) {
+			final String item = (String) parent.getItemAtPosition(position);
+			view.animate().setDuration(2000).alpha(0)
+					.withEndAction(new Runnable() {
+						@Override
+						public void run() {
+							list.remove(item);
+							adapter.notifyDataSetChanged();
+							view.setAlpha(1);
+						}
+					});
+		}
+	});
+	*/
     }
 
     private class StableArrayAdapter extends ArrayAdapter<String> {

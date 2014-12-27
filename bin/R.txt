@@ -534,7 +534,8 @@ int id beginning 0x7f050012
 int id bottom 0x7f050016
 int id btnOk 0x7f05004b
 int id btnadd 0x7f05004f
-int id btnaddtowish 0x7f050051
+int id btnaddtowish 0x7f050053
+int id btnback 0x7f050051
 int id btncancel 0x7f05004a
 int id checkbox 0x7f05002b
 int id collapseActionView 0x7f05000f
@@ -546,9 +547,10 @@ int id dropdown 0x7f050011
 int id edit_query 0x7f050035
 int id end 0x7f050014
 int id enterMoviewBtn 0x7f050043
+int id enterlayout 0x7f050050
 int id expand_activities_button 0x7f050024
 int id expanded_menu 0x7f05002a
-int id haveseen 0x7f050050
+int id haveseen 0x7f050052
 int id home 0x7f050017
 int id homeAsUp 0x7f050007
 int id icon 0x7f050028
@@ -556,7 +558,9 @@ int id ifRoom 0x7f05000c
 int id image 0x7f050025
 int id listMode 0x7f050002
 int id list_item 0x7f050027
-int id listview 0x7f050052
+int id list_layout 0x7f050054
+int id listtitle 0x7f050055
+int id listview 0x7f050057
 int id middle 0x7f050013
 int id movie_genre 0x7f05004e
 int id movie_name 0x7f05004c
@@ -579,6 +583,7 @@ int id search_mag_icon 0x7f05003a
 int id search_plate 0x7f05003b
 int id search_src_text 0x7f05003c
 int id search_voice_btn 0x7f050040
+int id sep 0x7f050056
 int id shortcut 0x7f05002c
 int id showCustom 0x7f050009
 int id showHome 0x7f050006
@@ -640,9 +645,12 @@ int string abc_searchview_description_voice 0x7f0a000a
 int string abc_shareactionprovider_share_with 0x7f0a000e
 int string abc_shareactionprovider_share_with_application 0x7f0a000d
 int string app_name 0x7f0a000f
+int string back 0x7f0a0013
 int string enter_movie_name 0x7f0a0011
 int string footer 0x7f0a0012
 int string hello_world 0x7f0a0010
+int string mymovies 0x7f0a0015
+int string mywish 0x7f0a0014
 int style AppBaseTheme 0x7f0b00eb
 int style AppTheme 0x7f0b00ec
 int style Base_TextAppearance_AppCompat 0x7f0b0098

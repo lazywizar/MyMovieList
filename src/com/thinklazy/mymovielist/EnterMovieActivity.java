@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -38,6 +39,7 @@ public class EnterMovieActivity extends Activity {
     TextView title;
     TextView seen;
     Button add;
+    TextView back;
     
     Button addToWish;
     String wishToastText;
@@ -57,6 +59,14 @@ public class EnterMovieActivity extends Activity {
 
     
     @Override
+    protected void onResume() {
+	super.onResume();
+	
+	Drawable listActivityBackground = findViewById(R.id.enterlayout).getBackground();
+	listActivityBackground.setAlpha(50);
+    }
+    
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.enter_movie);
@@ -68,15 +78,16 @@ public class EnterMovieActivity extends Activity {
 	myAutoComplete = (CustomAutoCompleteView) findViewById(R.id.autocompleteMovies);
 	cancel = (Button) findViewById(R.id.btncancel);
 	ok = (Button) findViewById(R.id.btnOk);
-	
+	    
 	movieName = (TextView) findViewById(R.id.movie_name);
 	genre = (TextView) findViewById(R.id.movie_genre);
 	rating = (TextView) findViewById(R.id.movie_rating);
 	seen = (TextView) findViewById(R.id.haveseen);
-
+	back = (TextView) findViewById(R.id.btnback);
 	add = (Button) findViewById(R.id.btnadd);
 	addToWish = (Button) findViewById(R.id.btnaddtowish);
-
+	seen.setText("");
+	
 	/*
 	 * if(method.equalsIgnoreCase("wishlist")) { wishToastText =
 	 * "Added to your Wishlist!!"; isWish = true;
@@ -115,12 +126,22 @@ public class EnterMovieActivity extends Activity {
 		}
 	    });
 
+	    back.setOnClickListener(new OnClickListener() {
+	        
+	        @Override
+	        public void onClick(View v) {
+	            Intent i = new Intent(EnterMovieActivity.this, MainActivity.class);
+			startActivity(i);
+	        }
+	    });
+	    
 	    ok.setOnClickListener(new OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
 		    Log.d(TAG, "TEXT:[" + myAutoComplete.getText().toString() + "]");
 		    isPresent = false;
+		    seen.setText("");
 		    searchMovie = myAutoComplete.getText().toString();
 		    
 		    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

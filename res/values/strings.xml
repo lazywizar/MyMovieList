@@ -4,9 +4,11 @@
     <string name="app_name">My Movie List</string>
     <string name="hello_world">My Movie List</string>
     <string name="enter_movie_name">Enter Movie Name</string>
-    <string name="footer">Copyright &#169; 2014 ThinkLazy Inc.</string>
+    <string name="footer">Copyright &#169; | 2014 ThinkLazy Inc.</string>
+    <string name="back">Home</string>
+    <string name="mywish">My Wishlist</string>
+    <string name="mymovies">Movies I have seen</string>
     
-
     <string-array name="movies_array">
         <item>Archivo Criminal (1999)</item>
         <item>ARD Wunschkonzert (1984)</item>
