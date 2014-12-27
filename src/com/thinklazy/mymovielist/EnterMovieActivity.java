@@ -39,7 +39,6 @@ public class EnterMovieActivity extends Activity {
     TextView title;
     TextView seen;
     Button add;
-    ImageView spinner;
     
     Button addToWish;
     String wishToastText;
@@ -70,9 +69,6 @@ public class EnterMovieActivity extends Activity {
 	myAutoComplete = (CustomAutoCompleteView) findViewById(R.id.autocompleteMovies);
 	cancel = (Button) findViewById(R.id.btncancel);
 	ok = (Button) findViewById(R.id.btnOk);
-	spinner = (ImageView) findViewById(R.id.spinner); 
-	spinner.setAlpha(0);
-	spinner.setVisibility(0);
 	
 	movieName = (TextView) findViewById(R.id.movie_name);
 	genre = (TextView) findViewById(R.id.movie_genre);
@@ -133,14 +129,10 @@ public class EnterMovieActivity extends Activity {
 			    myAutoComplete.getWindowToken(), 0);
 
 		    movieName.setText("Searching ...");
-		    spinner.setAlpha(1);
-		    spinner.setVisibility(1);
-			
+		    
 		    Movie movie = databaseH.get(myAutoComplete.getText()
 			    .toString());
-		    spinner.setAlpha(0);
-		    spinner.setVisibility(0);
-			
+		    
 		    movieName.setText("");
 		    genre.setText("");
 		    rating.setText("");
@@ -224,15 +216,13 @@ public class EnterMovieActivity extends Activity {
 
 				} else {
 				    movieName
-					    .setText("Ops! can't find this Movie.\n Press Add to enter\"" + myAutoComplete.getText().toString() + "\" to your list");
+					    .setText("Ops! can't find this Movie.\n Press Just Watched to enter \"" + myAutoComplete.getText().toString() + "\" to your list");
 				}
 			    } catch (Throwable e) {
 				// TODO Auto-generated catch block
 				movieName
 					.setText("Ops! can't find this Movie, try entering it manually");
 				e.printStackTrace();
-				spinner.setAlpha(0);
-				spinner.setVisibility(0);
 
 				isPresent = false;
 			    }
@@ -250,6 +240,7 @@ public class EnterMovieActivity extends Activity {
 			databaseH.markSeen(movieName.getText().toString());
 		    } else {
 			Movie m = new Movie(searchMovie);
+			m.seen = DatabaseHandler.getDateTime();
 			databaseH.addMovie(m);
 		    }
 		    Toast toast = Toast.makeText(getApplicationContext(),
@@ -263,8 +254,14 @@ public class EnterMovieActivity extends Activity {
 	    addToWish.setOnClickListener(new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-		    databaseH.addToWish(movieName.getText().toString());
-
+		    if(isPresent) {
+			databaseH.addToWish(movieName.getText().toString());
+		    } else {
+			Movie m = new Movie(searchMovie);
+			m.wishlist = "Y";
+			databaseH.addMovie(m);
+		    }
+		    
 		    Toast toast = Toast.makeText(getApplicationContext(),
 			    "Added to your Wishlist!!", Toast.LENGTH_LONG);
 		    toast.setGravity(Gravity.CENTER, 0, 0);

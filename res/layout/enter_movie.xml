@@ -49,7 +49,7 @@
                 android:id="@+id/btncancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/cancel_btn" />
+                android:background="@drawable/btncancel" />
         </LinearLayout>
 
         <LinearLayout
@@ -63,7 +63,7 @@
                 android:id="@+id/btnOk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ok_btn" />
+                android:background="@drawable/btnok" />
         </LinearLayout>
     </LinearLayout>
 
@@ -75,18 +75,11 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp" >
 
-        <ImageView
-            android:id="@+id/spinner"
-            android:gravity="top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher" />
-
         <TextView
             android:id="@+id/haveseen"
             android:layout_width="match_parent"
+            android:gravity="top"
             android:layout_height="wrap_content"
-            android:layout_below="@id/spinner"
             android:textColor="@color/DarkGray"
             android:textSize="20dp" />
 
@@ -119,22 +112,22 @@
 
         <Button
             android:id="@+id/btnaddtowish"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="false"
             android:layout_below="@id/movie_genre"
-            android:layout_toLeftOf="@+id/btnaddtowish"
+            android:layout_toLeftOf="@+id/btnadd"
             android:gravity="center_horizontal"
-            android:text="Add to Wishlist" />
+            android:background="@drawable/btnaddtowatchlist" />
 
         <Button
             android:id="@+id/btnadd"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@id/movie_genre"
             android:gravity="center_horizontal"
-            android:text="Add" />
+            android:background="@drawable/btnjustwatched" />
     </RelativeLayout>
 
 </LinearLayout>

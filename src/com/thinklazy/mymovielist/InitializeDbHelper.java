@@ -62,7 +62,7 @@ class InitializeDbHelper extends AsyncTask<Object, Void, String> {
 	AssetManager assetManager = context.getAssets();
 	try {
 	    InputStream inputStream = assetManager
-		    .open("movies_cleaned_unique.sql");
+		    .open("movies_cleaned_list.sql");
 	    InputStreamReader streamReader = new InputStreamReader(inputStream);
 	    BufferedReader bufferedReader = new BufferedReader(streamReader);
 	    String line;
@@ -70,7 +70,7 @@ class InitializeDbHelper extends AsyncTask<Object, Void, String> {
 	    db = dbHelper.getWritableDatabase();
 	    int masterCount = 1;
 	    complete = false;
-	    while ((line = bufferedReader.readLine()) != null) {
+	    while ((line = bufferedReader.readLine()) != null && completedPercent < 3) {
 		/*
 		 * String insert = "INSERT or replace INTO " +
 		 * DatabaseHandler.tableName + " (name) VALUES('" + line.trim()

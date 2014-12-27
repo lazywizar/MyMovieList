@@ -115,7 +115,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	String sql = "";
 	sql += "SELECT * FROM " + TABLE_NAME;
 	sql += " WHERE " + this.NAME + " LIKE '%" + searchTerm + "%'";
-	sql += " ORDER BY " + FIELD_OBJECT_ID + " DESC";
+	sql += " ORDER BY " + SEEN + " DESC";
 	sql += " LIMIT 0,3";
 
 	SQLiteDatabase db = this.getWritableDatabase();
@@ -174,10 +174,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public void markSeen(String movieName) {
 	// select query
+	String date = getDateTime();
 	String sql = "";
 	sql += "update "+ TABLE_NAME ;
-	sql += " set " + SEEN + "='" +  getDateTime()  + "' where name = '" ;
-	sql += movieName + "'";
+	sql += " set " + SEEN + "='" +  date  + "' where name = '" ;
+	sql += movieName.trim() + "'";
 
 	SQLiteDatabase db = this.getWritableDatabase();
 
@@ -190,7 +191,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	String sql = "";
 	sql += "update "+ TABLE_NAME ;
 	sql += " set " + WISHLIST + "='Y' where name = '" ;
-	sql += movieName + "'";
+	sql += movieName.trim() + "'";
 
 	SQLiteDatabase db = this.getWritableDatabase();
 
@@ -204,6 +205,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// select query
 	String sql = "";
 	sql += "SELECT * FROM " + TABLE_NAME;
+	//sql += " WHERE SEEN IS NOT NULL";
 	sql += " WHERE " + SEEN + " LIKE '%" + "-" + "%'";
 
 	SQLiteDatabase db = this.getWritableDatabase();
@@ -259,6 +261,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	String sql = "";
 	sql += "SELECT * FROM " + TABLE_NAME;
 	sql += " WHERE " + WISHLIST + " LIKE '%" + "Y" + "%'";
+	
+	//sql += " WHERE WISHLIST IS NOT NULL";
 
 	SQLiteDatabase db = this.getWritableDatabase();
 
@@ -288,9 +292,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	return recordsList;
     }
     
-    private String getDateTime() {
+    public static String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd HH", Locale.getDefault());
+                "yyyy-MM-dd", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
 }
