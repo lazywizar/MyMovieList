@@ -1787,26 +1787,30 @@ containing a value of this type.
         public static final int btn_clear=0x7f020039;
         public static final int btn_pressedaddtowishlist=0x7f02003a;
         public static final int btn_pressedjustwatched=0x7f02003b;
-        public static final int btnaddtowatchlist=0x7f02003c;
-        public static final int btnback=0x7f02003d;
-        public static final int btncancel=0x7f02003e;
-        public static final int btnjustwatched=0x7f02003f;
-        public static final int btnok=0x7f020040;
-        public static final int cancel_btn=0x7f020041;
-        public static final int feedback_btn=0x7f020042;
-        public static final int haveiseen=0x7f020043;
-        public static final int header=0x7f020044;
-        public static final int highscore_btn=0x7f020045;
-        public static final int ic_launcher=0x7f020046;
-        public static final int mybutton1=0x7f020047;
-        public static final int mymovies=0x7f020048;
-        public static final int mywishlist=0x7f020049;
-        public static final int ok_btn=0x7f02004a;
-        public static final int play_btn=0x7f02004b;
-        public static final int seperator=0x7f02004c;
-        public static final int settingicon=0x7f02004d;
-        public static final int shopping=0x7f02004e;
-        public static final int spinner=0x7f02004f;
+        public static final int btn_pressedremovedfromwishlist=0x7f02003c;
+        public static final int btn_pressedremovefrommymovies=0x7f02003d;
+        public static final int btn_removefrommymovies=0x7f02003e;
+        public static final int btn_removefromwishlist=0x7f02003f;
+        public static final int btnaddtowatchlist=0x7f020040;
+        public static final int btnback=0x7f020041;
+        public static final int btncancel=0x7f020042;
+        public static final int btnjustwatched=0x7f020043;
+        public static final int btnok=0x7f020044;
+        public static final int cancel_btn=0x7f020045;
+        public static final int feedback_btn=0x7f020046;
+        public static final int haveiseen=0x7f020047;
+        public static final int header=0x7f020048;
+        public static final int highscore_btn=0x7f020049;
+        public static final int ic_launcher=0x7f02004a;
+        public static final int mybutton1=0x7f02004b;
+        public static final int mymovies=0x7f02004c;
+        public static final int mywishlist=0x7f02004d;
+        public static final int ok_btn=0x7f02004e;
+        public static final int play_btn=0x7f02004f;
+        public static final int seperator=0x7f020050;
+        public static final int settingicon=0x7f020051;
+        public static final int shopping=0x7f020052;
+        public static final int spinner=0x7f020053;
     }
     public static final class id {
         public static final int RelativeLayout1=0x7f050041;
@@ -1834,10 +1838,13 @@ containing a value of this type.
         public static final int btnaddtowish=0x7f050053;
         public static final int btnback=0x7f050051;
         public static final int btncancel=0x7f05004a;
+        public static final int btnremove=0x7f05005a;
+        public static final int btnremovewish=0x7f050059;
         public static final int checkbox=0x7f05002b;
         public static final int collapseActionView=0x7f05000f;
         public static final int decor_content_parent=0x7f050031;
         public static final int default_activity_button=0x7f050026;
+        public static final int detaillayout=0x7f050058;
         public static final int dialog=0x7f050010;
         public static final int disableHome=0x7f05000a;
         public static final int dropdown=0x7f050011;
@@ -1951,7 +1958,8 @@ containing a value of this type.
         public static final int add_to_wish=0x7f030018;
         public static final int enter_movie=0x7f030019;
         public static final int listviewmymovies=0x7f03001a;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001b;
+        public static final int show_movie_details=0x7f03001b;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001c;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 

@@ -11,76 +11,90 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MyMoviesActivity extends Activity {
+public class MoviesListActivity extends Activity {
     // for database operations
     DatabaseHandler databaseH;
     TextView listTitle;
-    
+    TextView home;
+
+    ListView listview;
+
+    String method;
+
     @Override
     protected void onResume() {
 	super.onResume();
-	
-	Drawable listActivityBackground = findViewById(R.id.list_layout).getBackground();
+
+	Drawable listActivityBackground = findViewById(R.id.list_layout)
+		.getBackground();
 	listActivityBackground.setAlpha(35);
-    }
-    
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	setContentView(R.layout.listviewmymovies);
 
-	Intent intent =  getIntent();
-	String method = intent.getStringExtra("method");
-	
-	final ListView listview = (ListView) findViewById(R.id.listview);
-
-	listTitle = (TextView) findViewById(R.id.listtitle);
-	
-	databaseH = new DatabaseHandler(MyMoviesActivity.this);
+	databaseH = new DatabaseHandler(MoviesListActivity.this);
 	databaseH.getWritableDatabase();
 
-	List<Movie> movies ;
-	if(method.equalsIgnoreCase("wishlist")) {
+	home = (TextView) findViewById(R.id.btnback);
+	home.setOnClickListener(new OnClickListener() {
+
+	    @Override
+	    public void onClick(View v) {
+		Intent i = new Intent(MoviesListActivity.this,
+			MainActivity.class);
+		startActivity(i);
+	    }
+	});
+
+	List<Movie> movies;
+	if (method.equalsIgnoreCase("wishlist")) {
 	    movies = databaseH.getWishList();
 	    listTitle.setText(R.string.mywish);
 	} else {
 	    movies = databaseH.getMyMovies();
-	    listTitle.setText(R.string.mymovies);	
+	    listTitle.setText(R.string.mymovies);
 	}
+
 	final ArrayList<String> list = new ArrayList<String>();
-	
-	for(Movie movie : movies) {
+	for (Movie movie : movies) {
 	    list.add(movie.name);
 	}
 
 	final StableArrayAdapter adapter = new StableArrayAdapter(this,
 		android.R.layout.simple_list_item_1, list);
 	listview.setAdapter(adapter);
-	
-	/*
+
 	listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-		@SuppressLint("NewApi") @Override
-		public void onItemClick(AdapterView<?> parent, final View view,
-				int position, long id) {
-			final String item = (String) parent.getItemAtPosition(position);
-			view.animate().setDuration(2000).alpha(0)
-					.withEndAction(new Runnable() {
-						@Override
-						public void run() {
-							list.remove(item);
-							adapter.notifyDataSetChanged();
-							view.setAlpha(1);
-						}
-					});
-		}
+	    @SuppressLint("NewApi")
+	    @Override
+	    public void onItemClick(AdapterView<?> parent, final View view,
+		    int position, long id) {
+		final String movie = (String) parent
+			.getItemAtPosition(position);
+
+		Intent i = new Intent(MoviesListActivity.this,
+			ShowDetailsActivity.class);
+		i.putExtra("movie", movie);
+		startActivity(i);
+	    }
 	});
-	*/
+
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+	setContentView(R.layout.listviewmymovies);
+
+	Intent intent = getIntent();
+	method = intent.getStringExtra("method");
+
+	listTitle = (TextView) findViewById(R.id.listtitle);
+	listview = (ListView) findViewById(R.id.listview);
     }
 
     private class StableArrayAdapter extends ArrayAdapter<String> {

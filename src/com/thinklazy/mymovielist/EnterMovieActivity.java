@@ -40,7 +40,7 @@ public class EnterMovieActivity extends Activity {
     TextView seen;
     Button add;
     TextView back;
-    
+
     Button addToWish;
     String wishToastText;
     Boolean isWish;
@@ -53,32 +53,41 @@ public class EnterMovieActivity extends Activity {
     private ProgressBar mProgress;
     private Boolean isPresent;
     private String searchMovie = "";
-    
+
     // just to add some initial value
     String[] item = new String[] { "Please search..." };
 
-    
     @Override
     protected void onResume() {
 	super.onResume();
-	
-	Drawable listActivityBackground = findViewById(R.id.enterlayout).getBackground();
+
+	Drawable listActivityBackground = findViewById(R.id.enterlayout)
+		.getBackground();
 	listActivityBackground.setAlpha(50);
+	
+	add.setEnabled(false);
+	add.setBackgroundDrawable(getResources().getDrawable(
+		R.drawable.btn_pressedjustwatched));
+
+	addToWish.setEnabled(false);
+	addToWish.setBackgroundDrawable(getResources().getDrawable(
+		R.drawable.btn_pressedaddtowishlist));
+
     }
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.enter_movie);
 	Intent intent = getIntent();
 	String method = intent.getStringExtra("method");
-	isPresent = false;	
-	
+	isPresent = false;
+
 	// autocompletetextview is in activity_main.xml
 	myAutoComplete = (CustomAutoCompleteView) findViewById(R.id.autocompleteMovies);
 	cancel = (Button) findViewById(R.id.btncancel);
 	ok = (Button) findViewById(R.id.btnOk);
-	    
+
 	movieName = (TextView) findViewById(R.id.movie_name);
 	genre = (TextView) findViewById(R.id.movie_genre);
 	rating = (TextView) findViewById(R.id.movie_rating);
@@ -87,7 +96,7 @@ public class EnterMovieActivity extends Activity {
 	add = (Button) findViewById(R.id.btnadd);
 	addToWish = (Button) findViewById(R.id.btnaddtowish);
 	seen.setText("");
-	
+
 	/*
 	 * if(method.equalsIgnoreCase("wishlist")) { wishToastText =
 	 * "Added to your Wishlist!!"; isWish = true;
@@ -127,36 +136,38 @@ public class EnterMovieActivity extends Activity {
 	    });
 
 	    back.setOnClickListener(new OnClickListener() {
-	        
-	        @Override
-	        public void onClick(View v) {
-	            Intent i = new Intent(EnterMovieActivity.this, MainActivity.class);
-			startActivity(i);
-	        }
+
+		@Override
+		public void onClick(View v) {
+		    Intent i = new Intent(EnterMovieActivity.this,
+			    MainActivity.class);
+		    startActivity(i);
+		}
 	    });
-	    
+
 	    ok.setOnClickListener(new OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
-		    Log.d(TAG, "TEXT:[" + myAutoComplete.getText().toString() + "]");
+		    Log.d(TAG, "TEXT:[" + myAutoComplete.getText().toString()
+			    + "]");
 		    isPresent = false;
 		    seen.setText("");
 		    searchMovie = myAutoComplete.getText().toString();
-		    
+
 		    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		    imm.hideSoftInputFromWindow(
 			    myAutoComplete.getWindowToken(), 0);
 
 		    movieName.setText("Searching ...");
-		    
+
 		    Movie movie = databaseH.get(myAutoComplete.getText()
 			    .toString());
-		    
+
 		    movieName.setText("");
 		    genre.setText("");
 		    rating.setText("");
-			
+
 		    if (movie != null) {
 			isPresent = true;
 			if (!TextUtils.isEmpty(movie.seen)
@@ -164,24 +175,28 @@ public class EnterMovieActivity extends Activity {
 			    seen.setText("You have seen this movie on "
 				    + movie.seen + "\n");
 			    add.setEnabled(false);
-			    add.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_pressedjustwatched));
-			    
+			    add.setBackgroundDrawable(getResources()
+				    .getDrawable(
+					    R.drawable.btn_pressedjustwatched));
+
 			} else {
 			    add.setEnabled(true);
-			    add.setBackgroundDrawable(getResources().getDrawable(R.drawable.btnjustwatched));
-			    
-			}	
+			    add.setBackgroundDrawable(getResources()
+				    .getDrawable(R.drawable.btnjustwatched));
+
+			}
 			addToWish.setEnabled(true);
-			addToWish.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_addtowishlist));
-			    
+			addToWish.setBackgroundDrawable(getResources()
+				.getDrawable(R.drawable.btn_addtowishlist));
+
 			movieName.setText(movie.name + "\n");
-			if(movie.genre != null) {
+			if (movie.genre != null) {
 			    genre.setText(movie.genre + "\n");
 			} else {
 			    genre.setText("-\n");
 			}
-			
-			if(movie.rating != null) {
+
+			if (movie.rating != null) {
 			    rating.setText("Rating : " + movie.rating);
 			} else {
 			    rating.setText("-");
@@ -190,25 +205,24 @@ public class EnterMovieActivity extends Activity {
 			add.setVisibility(1);
 		    } else {
 			movieName.setText("Searching ...");
-			
+
 			// Movie not found in DB, try searching online
 			MovieSearchHelper searchHelper = new MovieSearchHelper();
 			JSONObject obj = null;
 
 			if (movie == null) {
 			    try {
-				
-				
+
 				String json = searchHelper.execute(
 					myAutoComplete.getText().toString())
 					.get();
-				
+
 				if (!json.contains("Error")) {
 				    obj = new JSONObject(json);
 				    Log.d("My App", obj.toString());
 				    if (obj == null) {
 					movieName
-						.setText("Ops! can't find this Movie, try entering it manually");
+						.setText("Oops! can't find this Movie, try entering it manually");
 				    } else {
 					movie = new Movie(obj
 						.getString("Title")
@@ -219,26 +233,34 @@ public class EnterMovieActivity extends Activity {
 						"", "", obj.getString("imdbID"));
 
 					isPresent = true;
-					
+
 					databaseH.addMovie(movie);
 					if (!TextUtils.isEmpty(movie.seen)
 						&& movie.seen.contains("-")) {
 					    seen.setText("You have seen this movie on "
 						    + movie.seen + "\n");
 					    add.setEnabled(false);
-					    add.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_pressedjustwatched));
-					    
+					    add.setBackgroundDrawable(getResources()
+						    .getDrawable(
+							    R.drawable.btn_pressedjustwatched));
+
 					} else {
 					    add.setEnabled(true);
-					    add.setBackgroundDrawable(getResources().getDrawable(R.drawable.btnjustwatched));
-					    
+					    add.setBackgroundDrawable(getResources()
+						    .getDrawable(
+							    R.drawable.btnjustwatched));
+
 					}
 					addToWish.setEnabled(true);
-					addToWish.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_addtowishlist));
-					    
+					addToWish
+						.setBackgroundDrawable(getResources()
+							.getDrawable(
+								R.drawable.btn_addtowishlist));
+
 					movieName.setText(movie.name + "\n");
 					genre.setText(movie.genre + "\n");
-					rating.setText("Rating : " + movie.rating);
+					rating.setText("Rating : "
+						+ movie.rating);
 
 					addToWish.setVisibility(1);
 					add.setVisibility(1);
@@ -246,12 +268,15 @@ public class EnterMovieActivity extends Activity {
 
 				} else {
 				    movieName
-					    .setText("Ops! can't find this Movie.\n Press Just Watched to enter \"" + myAutoComplete.getText().toString() + "\" to your list");
+					    .setText("Oops! can't find this Movie.\n Press Just Watched to enter \""
+						    + myAutoComplete.getText()
+							    .toString()
+						    + "\" to your list");
 				}
 			    } catch (Throwable e) {
 				// TODO Auto-generated catch block
 				movieName
-					.setText("Ops! can't find this Movie, try entering it manually");
+					.setText("Oops! can't find this Movie, try entering it manually");
 				e.printStackTrace();
 
 				isPresent = false;
@@ -266,7 +291,7 @@ public class EnterMovieActivity extends Activity {
 	    add.setOnClickListener(new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-		    if(isPresent) {
+		    if (isPresent) {
 			databaseH.markSeen(movieName.getText().toString());
 		    } else {
 			Movie m = new Movie(searchMovie);
@@ -278,29 +303,31 @@ public class EnterMovieActivity extends Activity {
 		    toast.setGravity(Gravity.CENTER, 0, 0);
 		    toast.show();
 		    add.setEnabled(false);
-		    add.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_pressedjustwatched));
-		    
+		    add.setBackgroundDrawable(getResources().getDrawable(
+			    R.drawable.btn_pressedjustwatched));
+
 		}
 	    });
 
 	    addToWish.setOnClickListener(new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-		    if(isPresent) {
+		    if (isPresent) {
 			databaseH.addToWish(movieName.getText().toString());
 		    } else {
 			Movie m = new Movie(searchMovie);
 			m.wishlist = "Y";
 			databaseH.addMovie(m);
 		    }
-		    
+
 		    Toast toast = Toast.makeText(getApplicationContext(),
 			    "Added to your Wishlist!!", Toast.LENGTH_LONG);
 		    toast.setGravity(Gravity.CENTER, 0, 0);
 		    toast.show();
 		    addToWish.setEnabled(false);
-		    addToWish.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_pressedaddtowishlist));
-		    
+		    addToWish.setBackgroundDrawable(getResources().getDrawable(
+			    R.drawable.btn_pressedaddtowishlist));
+
 		}
 	    });
 

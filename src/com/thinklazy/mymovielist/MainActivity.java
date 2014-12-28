@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,14 +25,35 @@ public class MainActivity extends Activity {
     private DatabaseHandler dbHandler;
     private SharedPreferences sharedpreferences;
 
+    private Boolean exit = false;
+
+    @Override
+    public void onBackPressed() {
+	if (exit) {
+	    finish(); // finish activity
+	} else {
+	    Toast.makeText(this, "Press Back again to Exit.",
+		    Toast.LENGTH_SHORT).show();
+	    exit = true;
+	    new Handler().postDelayed(new Runnable() {
+		@Override
+		public void run() {
+		    exit = false;
+		}
+	    }, 3 * 1000);
+
+	}
+    }
+
     @Override
     protected void onResume() {
 	super.onResume();
-	
-	Drawable listActivityBackground = findViewById(R.id.RelativeLayout1).getBackground();
+
+	Drawable listActivityBackground = findViewById(R.id.RelativeLayout1)
+		.getBackground();
 	listActivityBackground.setAlpha(1000);
     }
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -69,12 +91,28 @@ public class MainActivity extends Activity {
 	mMyWish.setOnClickListener(new OnClickListener() {
 	    @Override
 	    public void onClick(View v) {
-		Intent i = new Intent(MainActivity.this, MyMoviesActivity.class);
-		i.putExtra("method", "wishlist");
-		startActivity(i);
+		if (!InitializeDbHelper.isCompleteLoading()
+			&& !sharedpreferences.contains(DB_CREATED)) {
+		    // myAutoComplete.setVisibility(0);
+		    Toast toast = Toast
+			    .makeText(
+				    getApplicationContext(),
+				    "Loading awesome movies.. "
+					    + InitializeDbHelper
+						    .getLoadPercent()
+					    + "% \nPlease hold on \n(Don't worry, this happens only on first start!)",
+				    Toast.LENGTH_LONG);
+		    toast.setGravity(Gravity.CENTER, 0, 0);
+		    toast.show();
+		} else {
+		    Intent i = new Intent(MainActivity.this,
+			    MoviesListActivity.class);
+		    i.putExtra("method", "wishlist");
+		    startActivity(i);
+		}
 	    }
 	});
-	
+
 	mEnterMovie = (TextView) findViewById(R.id.enterMoviewBtn);
 	mEnterMovie.setOnClickListener(new OnClickListener() {
 
@@ -106,9 +144,25 @@ public class MainActivity extends Activity {
 	mMyMovie.setOnClickListener(new OnClickListener() {
 	    @Override
 	    public void onClick(View v) {
-		Intent i = new Intent(MainActivity.this, MyMoviesActivity.class);
-		i.putExtra("method", "mymovies");
-		startActivity(i);
+		if (!InitializeDbHelper.isCompleteLoading()
+			&& !sharedpreferences.contains(DB_CREATED)) {
+		    // myAutoComplete.setVisibility(0);
+		    Toast toast = Toast
+			    .makeText(
+				    getApplicationContext(),
+				    "Loading awesome movies.. "
+					    + InitializeDbHelper
+						    .getLoadPercent()
+					    + "% \nPlease hold on \n(Don't worry, this happens only on first start!)",
+				    Toast.LENGTH_LONG);
+		    toast.setGravity(Gravity.CENTER, 0, 0);
+		    toast.show();
+		} else {
+		    Intent i = new Intent(MainActivity.this,
+			    MoviesListActivity.class);
+		    i.putExtra("method", "mymovies");
+		    startActivity(i);
+		}
 	    }
 	});
 

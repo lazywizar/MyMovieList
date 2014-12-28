@@ -186,11 +186,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	db.execSQL(sql);
     }
     
+    public void markUnSeen(String movieName) {
+	// select query
+	String date = getDateTime();
+	String sql = "";
+	sql += "update "+ TABLE_NAME ;
+	sql += " set " + SEEN + "='' where name = '" ;
+	sql += movieName.trim() + "'";
+
+	SQLiteDatabase db = this.getWritableDatabase();
+
+	// execute the query
+	db.execSQL(sql);
+    }
+    
     public void addToWish(String movieName) {
 	// select query
 	String sql = "";
 	sql += "update "+ TABLE_NAME ;
 	sql += " set " + WISHLIST + "='Y' where name = '" ;
+	sql += movieName.trim() + "'";
+
+	SQLiteDatabase db = this.getWritableDatabase();
+
+	// execute the query
+	db.execSQL(sql);
+    }
+    
+    public void removeFromWish(String movieName) {
+	// select query
+	String sql = "";
+	sql += "update "+ TABLE_NAME ;
+	sql += " set " + WISHLIST + "='' where name = '" ;
 	sql += movieName.trim() + "'";
 
 	SQLiteDatabase db = this.getWritableDatabase();
